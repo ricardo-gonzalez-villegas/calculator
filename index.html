@@ -1,0 +1,113 @@
+<!-- Created by Ricardo Gonzalez 02/03/2020 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Calculator</title>
+    <link href="./css/style.css" type="text/css" rel="stylesheet" />
+    <link href="./css/reset.css" type="text/css" rel="stylesheet" />
+    <script src="./js/javascript.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <div class="calculator-container">
+      <div class="display-container">
+        <div class="top-display">
+          <div class="history">
+            <h2 id="history-display">9 + 2</h2>
+          </div>
+        </div>
+        <div class="bottom-display">
+          <div class="total">
+            <h1 id="total-display">0</h1>
+          </div>
+        </div>
+      </div>
+      <div class="buttons-container">
+        <div class="row">
+          <div class="button-container">
+            <button class="non-numeral" type="button">&#37;</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">&#8730;</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">x&#178;</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">1/x</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="button-container">
+            <button class="non-numeral" type="button" onclick="clearEverything()">CE</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">C</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">&#8701;</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">&#247;</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="7">7</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="8">8</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="9">9</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">&#215;</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="4">4</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="5">5</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="6">6</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button">&#8722;</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="1">1</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="2">2</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="3">3</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral" type="button" onclick="add()">&#43;</button>
+          </div>
+          <div class="row">
+            <div class="button-container">
+              <button class="non-numeral" type="button">&#177;</button>
+            </div>
+            <div class="button-container">
+              <button class="numeral" type="button" data-value="0">0</button>
+            </div>
+            <div class="button-container">
+              <button class="non-numeral" type="button">.</button>
+            </div>
+            <div class="button-container">
+              <button class="non-numeral" type="button">&#61;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
