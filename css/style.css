@@ -1,0 +1,119 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1,
+h2 {
+    font-family: "Roboto" !important;
+}
+
+.calculator-container {
+    margin: 0 auto;
+    position: relative;
+    top: 10%;
+    background-color: black;
+    width: 420px;
+    height: 500px;
+}
+
+.display-container {
+    margin: 0 auto;
+    position: relative;
+    top: 10px;
+    width: 400px;
+    height: 120px;
+}
+
+.top-display {
+    width: 400px;
+    height: 30px;
+    background-color: white;
+}
+
+.history {
+    position: relative;
+    margin: 0 auto;
+    width: 390px;
+    height: 26px;
+    top: 2px;
+    background-color: white;
+}
+
+.bottom-display {
+    width: 400px;
+    height: 90px;
+    background-color: white;
+}
+
+.total {
+    position: relative;
+    width: 390px;
+    top: 5px;
+    height: 70px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.buttons-container {
+    margin: 0 auto;
+    position: relative;
+    width: 400px;
+    height: 360px;
+    background-color: lightgrey;
+}
+
+.row {
+    width: 400px;
+    height: 60px;
+    margin: 0 auto;
+    float: left;
+
+}
+
+.button-container {
+    width: 100px;
+    height: 60px;
+    float: left;
+    font-size: 25px;
+}
+
+button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 3px;
+    color: white !important;
+    font-weight: bold;
+    background-color: gray;
+}
+
+.bottom-display h1 {
+    text-align: right;
+    font-size: 70px;
+    line-height: 70px;
+}
+
+.top-display h2 {
+    text-align: right;
+    line-height: 26px;
+    font-size: 26px;
+}
+
+.numeral {
+    background-color: black;
+}
+
+.numeral:hover {
+    background-color: lightskyblue;
+}
+
+.non-numeral {
+    background-color: darkgrey;
+}
+
+.non-numeral:hover {
+    background-color: lightsalmon;
+}
