@@ -2,7 +2,7 @@
 let totalDisaply = document.getElementById("total-display");
 let historyDisplay = document.getElementById("history-display");
 let operator = "";
-let currentInteger;
+let currentInteger = '';
 let previousInteger;
 let currentTotal;
 let history = "";
@@ -17,16 +17,17 @@ function toInt(str) {
 }
 
 function add() {
-  if (currentInteger.length !== 0) {
+console.log('when you add '+currentInteger);
+ if (currentInteger.length !== 0) {
     typeof currentTotal !== "undefined"
       ? (currentTotal += toInt(currentInteger))
       : (currentTotal = toInt(previousInteger) + toInt(currentInteger));
   } else if (currentInteger.length === 0) {
     currentTotal += previousInteger;
-    currentInteger = "";
   }
   console.log(currentTotal);
   setDisplay();
+  setHistory();
   return currentTotal;
 }
 
@@ -35,8 +36,10 @@ function subtract() {
     typeof currentTotal !== "undefined"
       ? (currentTotal -= toInt(currentInteger))
       : (currentTotal = toInt(previousInteger) - toInt(currentInteger));
+      currentInteger = 0;
   } else if (currentInteger.length === 0) {
     currentTotal -= previousInteger;
+    currentInteger = 0;
   }
   console.log(currentTotal);
   setDisplay();
@@ -44,12 +47,18 @@ function subtract() {
 }
 
 function divide() {
+  if(currentInteger == 0){
+    totalDisaply.innerHTML = 'ERROR';
+    return;
+  }
   if (currentInteger.length !== 0) {
     typeof currentTotal !== "undefined"
       ? (currentTotal /= toInt(currentInteger))
       : (currentTotal = toInt(previousInteger) / toInt(currentInteger));
+      currentInteger = 0;
   } else if (currentInteger.length === 0) {
     currentTotal /= previousInteger;
+    currentInteger = 0;
   }
   console.log(currentTotal);
   setDisplay();
@@ -61,8 +70,10 @@ function multiply() {
     typeof currentTotal !== "undefined"
       ? (currentTotal *= toInt(currentInteger))
       : (currentTotal = toInt(previousInteger) * toInt(currentInteger));
+      currentInteger = 0;
   } else if (currentInteger.length === 0) {
     currentTotal *= previousInteger;
+    currentInteger = 0;
   }
   console.log(currentTotal);
   setDisplay();
@@ -77,7 +88,10 @@ function saveIntergers() {
 }
 
 function setInterger(interger) {
-  if (interger == 0 && !currentInteger) {
+  if(currentInteger.length === 1 && currentInteger === 0){
+    return;
+  }
+  if (interger === '.' && currentInteger.includes('.')) {
     return;
   }
   currentInteger = !currentInteger ? interger : currentInteger + interger;
@@ -100,7 +114,7 @@ function clearInterger(){
 }
 
 function backspace() {
-  if (currentInteger.length === 1) {
+  if (currentInteger.length === 0) {
     totalDisaply.innerHTML =
       Math.round((currentTotal + Number.EPSILON) * 100) / 100;
   } else {
@@ -108,11 +122,26 @@ function backspace() {
     currentInteger.length === 0
       ? (totalDisaply.innerHTML = 0)
       : (totalDisaply.innerHTML = currentInteger);
+      if(currentInteger.length == 0){
+        currentInteger = 0;
+      }
+      //console.log('this is my last value'+currentInteger)
   }
 }
 
+function addPositiveOrNegative(){
+    currentInteger = currentInteger * -1;
+    totalDisaply.innerHTML = currentInteger;
+    console.log('from +- function    '+currentInteger);
+}
+
 function setHistory() {
-  history += previousInteger + " " + operator + " ";
+  history += previousInteger + " " + operator + ' ';
+  historyDisplay.innerHTML = history;
+}
+
+function setHistory2() {
+  history += currentInteger + " " + operator + ' ';
   historyDisplay.innerHTML = history;
 }
 
@@ -121,6 +150,7 @@ const numeralButtons = document.querySelectorAll(".numeral");
 numeralButtons.forEach(button => {
   button.addEventListener("click", event => {
     setInterger(event.target.dataset.value);
+    
   });
 });
 
@@ -130,7 +160,7 @@ nonNumeralButtons.forEach(button => {
   button.addEventListener("click", event => {
     console.log(event.target.dataset.value);
     operator = event.target.dataset.value;
-    if (!currentTotal) {
+    if (currentTotal === undefined) {
       previousInteger = currentInteger;
     } else {
       previousInteger = currentTotal;
