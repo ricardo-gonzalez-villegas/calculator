@@ -2,13 +2,15 @@
 let totalDisaply = document.getElementById("total-display");
 let historyDisplay = document.getElementById("history-display");
 let operator = "";
-let currentInteger = '';
-let previousInteger;
-let currentTotal;
+let intergerString = "0";
+let firstInterger = "";
+let secondInterger = "";
+let total = "";
 let history = "";
-let display = true;
+let isCalc = true;
 
 function equals() {
+  setInterger();
   chooseOperation(operator);
 }
 
@@ -16,68 +18,82 @@ function toInt(str) {
   return str * 1;
 }
 
-function add() {
-console.log('when you add '+currentInteger);
- if (currentInteger.length !== 0) {
-    typeof currentTotal !== "undefined"
-      ? (currentTotal += toInt(currentInteger))
-      : (currentTotal = toInt(previousInteger) + toInt(currentInteger));
-  } else if (currentInteger.length === 0) {
-    currentTotal += previousInteger;
+function setInterger() {
+  if (intergerString == ".") {
+    return;
   }
-  console.log(currentTotal);
+  if (isCalc === false) {
+    return;
+  } else {
+    !firstInterger
+      ? (firstInterger = intergerString)
+      : (secondInterger = intergerString);
+    intergerString = "";
+  }
+}
+
+function add() {
+  console.log("first " + firstInterger);
+  console.log("second " + secondInterger);
+  if (isCalc) {
+    total = toInt(firstInterger) + toInt(secondInterger);
+    isCalc = false;
+  } else if (!secondInterger) {
+    total += toInt(firstInterger);
+  } else if (isCalc === false) {
+    total += toInt(secondInterger);
+  }
   setDisplay();
-  setHistory();
-  return currentTotal;
+  return total;
 }
 
 function subtract() {
-  if (currentInteger.length !== 0) {
-    typeof currentTotal !== "undefined"
-      ? (currentTotal -= toInt(currentInteger))
-      : (currentTotal = toInt(previousInteger) - toInt(currentInteger));
-      currentInteger = 0;
-  } else if (currentInteger.length === 0) {
-    currentTotal -= previousInteger;
-    currentInteger = 0;
+  console.log("first " + firstInterger);
+  console.log("second " + secondInterger);
+  if (isCalc) {
+    total = toInt(firstInterger) - toInt(secondInterger);
+    isCalc = false;
+  } else if (!secondInterger) {
+    total -= toInt(firstInterger);
+  } else if (isCalc === false) {
+    total -= toInt(secondInterger);
   }
-  console.log(currentTotal);
   setDisplay();
-  return currentTotal;
+  return total;
 }
 
 function divide() {
-  if(currentInteger == 0){
+  if(secondInterger == 0){
     totalDisaply.innerHTML = 'ERROR';
     return;
   }
-  if (currentInteger.length !== 0) {
-    typeof currentTotal !== "undefined"
-      ? (currentTotal /= toInt(currentInteger))
-      : (currentTotal = toInt(previousInteger) / toInt(currentInteger));
-      currentInteger = 0;
-  } else if (currentInteger.length === 0) {
-    currentTotal /= previousInteger;
-    currentInteger = 0;
+  console.log("first " + firstInterger);
+  console.log("second " + secondInterger);
+  if (isCalc) {
+    total = toInt(firstInterger) / toInt(secondInterger);
+    isCalc = false;
+  } else if (!secondInterger) {
+    total /= toInt(firstInterger);
+  } else if (isCalc === false) {
+    total /= toInt(secondInterger);
   }
-  console.log(currentTotal);
   setDisplay();
-  return currentTotal;
+  return total;
 }
 
 function multiply() {
-  if (currentInteger.length !== 0) {
-    typeof currentTotal !== "undefined"
-      ? (currentTotal *= toInt(currentInteger))
-      : (currentTotal = toInt(previousInteger) * toInt(currentInteger));
-      currentInteger = 0;
-  } else if (currentInteger.length === 0) {
-    currentTotal *= previousInteger;
-    currentInteger = 0;
+  console.log("first " + firstInterger);
+  console.log("second " + secondInterger);
+  if (isCalc) {
+    total = toInt(firstInterger) * toInt(secondInterger);
+    isCalc = false;
+  } else if (!secondInterger) {
+    total *= toInt(firstInterger);
+  } else if (isCalc === false) {
+    total *= toInt(secondInterger);
   }
-  console.log(currentTotal);
   setDisplay();
-  return currentTotal;
+  return total;
 }
 
 function saveIntergers() {
@@ -87,61 +103,63 @@ function saveIntergers() {
   setHistory();
 }
 
-function setInterger(interger) {
-  if(currentInteger.length === 1 && currentInteger === 0){
+function createInterger(interger) {
+  if (intergerString.length === 1 && interger == 0) {
     return;
   }
-  if (interger === '.' && currentInteger.includes('.')) {
+  if (interger === "." && intergerString.includes(".")) {
     return;
   }
-  currentInteger = !currentInteger ? interger : currentInteger + interger;
-  totalDisaply.innerHTML = currentInteger;
-  console.log(currentInteger);
+  if (
+    (intergerString == "0" && interger == ".") ||
+    (intergerString == "" && interger == ".")
+  ) {
+    intergerString = "0.";
+  } else if (intergerString == "0") {
+    intergerString = interger;
+  } else {
+    intergerString += interger;
+  }
+
+  totalDisaply.innerHTML = intergerString;
+  console.log(intergerString);
 }
 
 function setDisplay() {
-  totalDisaply.innerHTML =
-    Math.round((currentTotal + Number.EPSILON) * 100) / 100;
+  totalDisaply.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
 }
 
 function clearEverything() {
   location.reload();
 }
 
-function clearInterger(){
-  currentInteger = '';
-  totalDisaply.innerHTML = 0;
+function clearInterger() {
+  intergerString = "";
+  totalDisaply.innerHTML = '0';
 }
 
 function backspace() {
-  if (currentInteger.length === 0) {
+  if (intergerString.length === 0) {
     totalDisaply.innerHTML =
-      Math.round((currentTotal + Number.EPSILON) * 100) / 100;
+      Math.round((total + Number.EPSILON) * 100) / 100;
   } else {
-    currentInteger = currentInteger.substring(0, currentInteger.length - 1);
-    currentInteger.length === 0
-      ? (totalDisaply.innerHTML = 0)
-      : (totalDisaply.innerHTML = currentInteger);
-      if(currentInteger.length == 0){
-        currentInteger = 0;
-      }
-      //console.log('this is my last value'+currentInteger)
+    intergerString = intergerString.substring(0, intergerString.length - 1);
+    intergerString.length === 0
+      ? (totalDisaply.innerHTML = '0')
+      : (totalDisaply.innerHTML = intergerString);
+    if (intergerString.length == '0') {
+      intergerString = '0';
+    }
   }
 }
 
-function addPositiveOrNegative(){
-    currentInteger = currentInteger * -1;
-    totalDisaply.innerHTML = currentInteger;
-    console.log('from +- function    '+currentInteger);
+function addPositiveOrNegative() {
+  intergerString = intergerString * -1;
+  totalDisaply.innerHTML = intergerString;
 }
 
 function setHistory() {
-  history += previousInteger + " " + operator + ' ';
-  historyDisplay.innerHTML = history;
-}
-
-function setHistory2() {
-  history += currentInteger + " " + operator + ' ';
+  history += previousInteger + " " + operator + " ";
   historyDisplay.innerHTML = history;
 }
 
@@ -149,8 +167,12 @@ const numeralButtons = document.querySelectorAll(".numeral");
 
 numeralButtons.forEach(button => {
   button.addEventListener("click", event => {
-    setInterger(event.target.dataset.value);
-    
+    createInterger(event.target.dataset.value);
+    if (isCalc === false) {
+      firstInterger = "";
+      secondInterger = "";
+      isCalc = true;
+    }
   });
 });
 
@@ -160,12 +182,12 @@ nonNumeralButtons.forEach(button => {
   button.addEventListener("click", event => {
     console.log(event.target.dataset.value);
     operator = event.target.dataset.value;
-    if (currentTotal === undefined) {
-      previousInteger = currentInteger;
-    } else {
-      previousInteger = currentTotal;
+    if (isCalc === false) {
+      firstInterger = total;
+      secondInterger = "";
+      isCalc = true;
     }
-    currentInteger = "";
+    setInterger();
   });
 });
 
@@ -173,22 +195,22 @@ function chooseOperation(operator) {
   switch (operator) {
     case "+":
       console.log("add");
-      currentTotal = add();
+      total = add();
       break;
 
     case "-":
       console.log("subtract");
-      currentTotal = subtract();
+      total = subtract();
       break;
 
     case "/":
       console.log("divide");
-      currentTotal = divide();
+      total = divide();
       break;
 
     case "*":
       console.log("multiply");
-      currentTotal = multiply();
+      total = multiply();
       break;
   }
 }
