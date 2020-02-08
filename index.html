@@ -11,12 +11,7 @@
   <body>
     <div class="calculator-container">
       <div class="display-container">
-        <div class="top-display">
-          <div class="history">
-            <h2 id="history-display"></h2>
-          </div>
-        </div>
-        <div class="bottom-display">
+        <div class="display">
           <div class="total">
             <h1 id="total-display">0</h1>
           </div>
@@ -25,85 +20,85 @@
       <div class="buttons-container">
         <div class="row">
           <div class="button-container">
-            <button class="non-numeral operator" type="button">&#37;</button>
+            <button class="non-numeral" type="button" onclick="getPercentage()" data-key="80" data-value="p">&#37;</button>
           </div>
           <div class="button-container">
-            <button class="non-numeral operator" type="button">&#8730;</button>
+            <button class="non-numeral" type="button" onclick="getSquareroot()" data-key="82" data-value="r">&#8730;</button>
           </div>
           <div class="button-container">
-            <button class="non-numeral operator" type="button">x&#178;</button>
+            <button class="non-numeral" type="button" onclick="getSquared()" data-key="83" data-value="s">x&#178;</button>
           </div>
           <div class="button-container">
-            <button class="non-numeral operator" type="button">1/x</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="button-container">
-            <button class="non-numeral" type="button" onclick="clearEverything()">CE</button>
-          </div>
-          <div class="button-container">
-            <button class="non-numeral" type="button" onclick="clearInterger()">C</button>
-          </div>
-          <div class="button-container">
-            <button class="non-numeral" type="button" onclick="backspace()">&#8701;</button>
-          </div>
-          <div class="button-container">
-            <button class="non-numeral operator" type="button" data-value="/">&#247;</button>
+            <button class="non-numeral" type="button" onclick="getFraction()" data-key="70" data-value="f">1/x</button>
           </div>
         </div>
         <div class="row">
           <div class="button-container">
-            <button class="numeral" type="button" data-value="7">7</button>
+            <button class="non-numeral" type="button" onclick="clearEverything()" data-key="69" data-value="ce">CE</button>
           </div>
           <div class="button-container">
-            <button class="numeral" type="button" data-value="8">8</button>
+            <button class="non-numeral" type="button" onclick="clearInterger()" data-key="67" data-value="c">C</button>
           </div>
           <div class="button-container">
-            <button class="numeral" type="button" data-value="9">9</button>
+            <button class="non-numeral" type="button" onclick="backspace()" data-key="8" data-value="b">&#8701;</button>
           </div>
           <div class="button-container">
-            <button class="non-numeral operator" type="button" data-value="*">&#215;</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="button-container">
-            <button class="numeral" type="button" data-value="4">4</button>
-          </div>
-          <div class="button-container">
-            <button class="numeral" type="button" data-value="5">5</button>
-          </div>
-          <div class="button-container">
-            <button class="numeral" type="button" data-value="6">6</button>
-          </div>
-          <div class="button-container">
-            <button class="non-numeral operator" type="button" data-value="-">&#8722;</button>
+            <button class="non-numeral operator" type="button" data-value="/" data-key="191">&#247;</button>
           </div>
         </div>
         <div class="row">
           <div class="button-container">
-            <button class="numeral" type="button" data-value="1">1</button>
+            <button class="numeral" type="button" data-value="7" data-key="55">7</button>
           </div>
           <div class="button-container">
-            <button class="numeral" type="button" data-value="2">2</button>
+            <button class="numeral" type="button" data-value="8" data-key="56">8</button>
           </div>
           <div class="button-container">
-            <button class="numeral" type="button" data-value="3">3</button>
+            <button class="numeral" type="button" data-value="9" data-key="57">9</button>
           </div>
           <div class="button-container">
-            <button class="non-numeral operator" type="button" data-value="+">&#43;</button>
+            <button class="non-numeral operator" type="button" data-value="*" data-key="88">&#215;</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="4" data-key="52">4</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="5" data-key="53">5</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="6" data-key="54">6</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral operator" type="button" data-value="-" data-key="189">&#8722;</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="1" data-key="49">1</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="2" data-key="50">2</button>
+          </div>
+          <div class="button-container">
+            <button class="numeral" type="button" data-value="3" data-key="51">3</button>
+          </div>
+          <div class="button-container">
+            <button class="non-numeral operator" type="button" data-value="+" data-key="187">&#43;</button>
           </div>
           <div class="row">
             <div class="button-container">
-              <button class="non-numeral" type="button" onclick="addPositiveOrNegative()">&#177;</button>
+              <button class="non-numeral" type="button" onclick="addPositiveOrNegative()" data-key="78" data-value="n">&#177;</button>
             </div>
             <div class="button-container">
-              <button class="numeral" type="button" data-value="0">0</button>
+              <button class="numeral" type="button" data-value="0" data-key="48">0</button>
             </div>
             <div class="button-container">
-              <button class="numeral" type="button" data-value=".">.</button>
+              <button class="numeral" type="button" data-value="." data-key="190">.</button>
             </div>
             <div class="button-container">
-              <button class="" type="button" onclick="equals()">&#61;</button>
+              <button class="" type="button" onclick="equals()" data-key="13" data-value="=">&#61;</button>
             </div>
           </div>
         </div>
