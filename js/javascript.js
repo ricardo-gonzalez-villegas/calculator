@@ -8,10 +8,14 @@ let secondInterger = "";
 let total = "";
 let history = "";
 let isCalc = true;
+let allowOperator = true;
+let caseOne = false;
+let caseTwo = false;
 
 function equals() {
   setInterger();
   chooseOperation(operator);
+  allowOperator = true;
 }
 
 function toInt(str) {
@@ -19,15 +23,13 @@ function toInt(str) {
 }
 
 function setInterger() {
-  if (intergerString == ".") {
-    return;
-  }
   if (isCalc === false) {
     return;
   } else {
     !firstInterger
       ? (firstInterger = intergerString)
       : (secondInterger = intergerString);
+    setHistoryInterger();
     intergerString = "";
   }
 }
@@ -38,10 +40,20 @@ function add() {
   if (isCalc) {
     total = toInt(firstInterger) + toInt(secondInterger);
     isCalc = false;
+    allowOperator = false;
+    console.log("i got to the orignal");
   } else if (!secondInterger) {
     total += toInt(firstInterger);
+    console.log(" i got to the first part");
+    caseOne = true;
+    setHistoryInterger();
+    setHistoryOperator();
   } else if (isCalc === false) {
+    console.log(" i got to the second part");
     total += toInt(secondInterger);
+    caseTwo = true;
+    setHistoryOperator();
+    setHistoryInterger();
   }
   setDisplay();
   return total;
@@ -53,18 +65,29 @@ function subtract() {
   if (isCalc) {
     total = toInt(firstInterger) - toInt(secondInterger);
     isCalc = false;
+    console.log("i got to the original");
   } else if (!secondInterger) {
     total -= toInt(firstInterger);
+    console.log(" i got to the first part");
+    caseOne = true;
+    setHistoryInterger();
+    setHistoryOperator();
   } else if (isCalc === false) {
+    console.log(" i got to the second part");
     total -= toInt(secondInterger);
+    caseTwo = true;
+    setHistoryOperator();
+    setHistoryInterger();
   }
   setDisplay();
   return total;
 }
 
 function divide() {
-  if(secondInterger == 0){
-    totalDisaply.innerHTML = 'ERROR';
+  if (secondInterger == 0) {
+    history = "";
+    historyDisplay.innerHTML = history;
+    totalDisaply.innerHTML = "ERROR";
     return;
   }
   console.log("first " + firstInterger);
@@ -74,8 +97,16 @@ function divide() {
     isCalc = false;
   } else if (!secondInterger) {
     total /= toInt(firstInterger);
+    console.log(" i got to the first part");
+    caseOne = true;
+    setHistoryInterger();
+    setHistoryOperator();
   } else if (isCalc === false) {
+    console.log(" i got to the second part");
     total /= toInt(secondInterger);
+    caseTwo = true;
+    setHistoryOperator();
+    setHistoryInterger();
   }
   setDisplay();
   return total;
@@ -89,22 +120,23 @@ function multiply() {
     isCalc = false;
   } else if (!secondInterger) {
     total *= toInt(firstInterger);
+    console.log(" i got to the first part");
+    caseOne = true;
+    setHistoryInterger();
+    setHistoryOperator();
   } else if (isCalc === false) {
+    console.log(" i got to the second part");
     total *= toInt(secondInterger);
+    caseTwo = true;
+    setHistoryOperator();
+    setHistoryInterger();
   }
   setDisplay();
   return total;
 }
 
-function saveIntergers() {
-  previousInteger = currentInteger;
-  currentTotal = currentInteger;
-  currentInteger = 0;
-  setHistory();
-}
-
 function createInterger(interger) {
-  if (intergerString.length === 1 && interger == 0) {
+  if (intergerString.length === 0 && interger == 0) {
     return;
   }
   if (interger === "." && intergerString.includes(".")) {
@@ -120,7 +152,6 @@ function createInterger(interger) {
   } else {
     intergerString += interger;
   }
-
   totalDisaply.innerHTML = intergerString;
   console.log(intergerString);
 }
@@ -135,20 +166,19 @@ function clearEverything() {
 
 function clearInterger() {
   intergerString = "";
-  totalDisaply.innerHTML = '0';
+  totalDisaply.innerHTML = "0";
 }
 
 function backspace() {
   if (intergerString.length === 0) {
-    totalDisaply.innerHTML =
-      Math.round((total + Number.EPSILON) * 100) / 100;
+    totalDisaply.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   } else {
     intergerString = intergerString.substring(0, intergerString.length - 1);
     intergerString.length === 0
-      ? (totalDisaply.innerHTML = '0')
+      ? (totalDisaply.innerHTML = "0")
       : (totalDisaply.innerHTML = intergerString);
-    if (intergerString.length == '0') {
-      intergerString = '0';
+    if (intergerString.length == "0") {
+      intergerString = "0";
     }
   }
 }
@@ -158,9 +188,50 @@ function addPositiveOrNegative() {
   totalDisaply.innerHTML = intergerString;
 }
 
-function setHistory() {
-  history += previousInteger + " " + operator + " ";
-  historyDisplay.innerHTML = history;
+function setHistoryInterger() {
+  let storeInt = "";
+  if (caseOne) {
+    if (firstInterger < 0) {
+      storeInt = "(" + firstInterger + " )";
+      history += storeInt;
+      historyDisplay.innerHTML = history;
+    } else {
+      history += firstInterger;
+      historyDisplay.innerHTML = history;
+    }
+    caseOne = false;
+  } else if (caseTwo) {
+    if (secondInterger < 0) {
+      storeInt = "(" + secondInterger + " )";
+      history += storeInt;
+      historyDisplay.innerHTML = history;
+    } else {
+      history += secondInterger;
+      historyDisplay.innerHTML = history;
+    }
+    caseTwo = false;
+  } else {
+    if (intergerString < 0) {
+      storeInt = "(" + intergerString + " )";
+      history += storeInt;
+      historyDisplay.innerHTML = history;
+    } else {
+      history += intergerString;
+      historyDisplay.innerHTML = history;
+    }
+  }
+}
+
+function setHistoryOperator() {
+  console.log(history);
+   if (allowOperator) {
+    history += operator;
+    if(history.includes("  ")){
+      history = history.substring(0, history.length-2);
+    }
+    historyDisplay.innerHTML = history;
+    console.log(history);
+  }
 }
 
 const numeralButtons = document.querySelectorAll(".numeral");
@@ -171,6 +242,8 @@ numeralButtons.forEach(button => {
     if (isCalc === false) {
       firstInterger = "";
       secondInterger = "";
+      history = "";
+      historyDisplay.innerHTML = history;
       isCalc = true;
     }
   });
@@ -188,6 +261,8 @@ nonNumeralButtons.forEach(button => {
       isCalc = true;
     }
     setInterger();
+    setHistoryOperator();
+    allowOperator = false;
   });
 });
 
