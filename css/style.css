@@ -32,16 +32,7 @@ h2 {
     background-color: white;
 }
 
-.history {
-    position: relative;
-    margin: 0 auto;
-    width: 390px;
-    height: 26px;
-    top: 2px;
-    background-color: white;
-}
-
-.bottom-display {
+.display {
     width: 400px;
     height: 90px;
     background-color: white;
@@ -90,7 +81,7 @@ button {
     background-color: gray;
 }
 
-.bottom-display h1 {
+.display h1 {
     text-align: right;
     font-size: 70px;
     line-height: 70px;
