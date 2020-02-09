@@ -133,7 +133,7 @@ function getPercentage() {
 }
 
 function createInterger(interger) {
-  if (intergerString.length >= 13) {
+  if (intergerString.length >= 12) {
     totalDisplay.innerHTML = "ERROR";
     intergerString = "";
     return;
@@ -158,7 +158,7 @@ function createInterger(interger) {
 }
 
 function setDisplay() {
-  if (total >= 9999999999999) {
+  if (total >= 999999999999) {
     totalDisplay.innerHTML = "ERROR";
     total = 0;
   } else if (isNaN(total)) {
