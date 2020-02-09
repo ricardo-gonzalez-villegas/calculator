@@ -133,7 +133,7 @@ function getPercentage() {
 }
 
 function createInterger(interger) {
-  if (intergerString.length >= 12) {
+  if (intergerString.length >= 15) {
     totalDisplay.innerHTML = "ERROR";
     intergerString = "";
     return;
@@ -158,7 +158,7 @@ function createInterger(interger) {
 }
 
 function setDisplay() {
-  if (total >= 999999999999) {
+  if (total >= 999999999999999) {
     totalDisplay.innerHTML = "ERROR";
     total = 0;
   } else if (isNaN(total)) {
@@ -197,6 +197,7 @@ function addPositiveOrNegative() {
     totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   } else {
     intergerString = intergerString * -1;
+    intergerString = intergerString.toString();
     totalDisplay.innerHTML = intergerString;
   }
 }
