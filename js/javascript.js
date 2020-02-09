@@ -1,5 +1,6 @@
+//Coded by Ricardo Gonzalez
 "use strict";
-let totalDisaply = document.getElementById("total-display");
+let totalDisplay = document.getElementById("total-display");
 let operator = "";
 let intergerString = "0";
 let firstInterger = "";
@@ -55,7 +56,7 @@ function subtract() {
 
 function divide() {
   if (secondInterger == 0) {
-    totalDisaply.innerHTML = "ERROR";
+    totalDisplay.innerHTML = "ERROR";
     return;
   }
   if (isCalc) {
@@ -132,6 +133,11 @@ function getPercentage() {
 }
 
 function createInterger(interger) {
+  if (intergerString.length >= 13) {
+    totalDisplay.innerHTML = "ERROR";
+    intergerString = "";
+    return;
+  }
   if (intergerString.length === 0 && interger == 0) {
     return;
   }
@@ -148,14 +154,17 @@ function createInterger(interger) {
   } else {
     intergerString += interger;
   }
-  totalDisaply.innerHTML = intergerString;
+  totalDisplay.innerHTML = intergerString;
 }
 
 function setDisplay() {
-  if (isNaN(total)) {
-    totalDisaply.innerHTML = "ERROR";
+  if (total >= 9999999999999) {
+    totalDisplay.innerHTML = "ERROR";
+    total = 0;
+  } else if (isNaN(total)) {
+    totalDisplay.innerHTML = "ERROR";
   } else {
-    totalDisaply.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
+    totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   }
 }
 
@@ -165,17 +174,17 @@ function clearEverything() {
 
 function clearInterger() {
   intergerString = "";
-  totalDisaply.innerHTML = "0";
+  totalDisplay.innerHTML = "0";
 }
 
 function backspace() {
   if (intergerString.length === 0) {
-    totalDisaply.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
+    totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   } else {
     intergerString = intergerString.substring(0, intergerString.length - 1);
     intergerString.length === 0
-      ? (totalDisaply.innerHTML = "0")
-      : (totalDisaply.innerHTML = intergerString);
+      ? (totalDisplay.innerHTML = "0")
+      : (totalDisplay.innerHTML = intergerString);
     if (intergerString.length == "0") {
       intergerString = "0";
     }
@@ -185,10 +194,10 @@ function backspace() {
 function addPositiveOrNegative() {
   if (total) {
     total = total * -1;
-    totalDisaply.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
+    totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   } else {
     intergerString = intergerString * -1;
-    totalDisaply.innerHTML = intergerString;
+    totalDisplay.innerHTML = intergerString;
   }
 }
 
@@ -224,6 +233,20 @@ window.addEventListener("keydown", checkKey);
 function checkKey(e) {
   const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
   if (!key) return;
+  if(key.classList.contains('non-numeral')){
+    key.classList.add("non-numeral-keydown");
+    setTimeout(function() {
+      key.classList.remove("non-numeral-keydown");
+    }, 200);
+  }
+
+  if(key.classList.contains('dot')){
+    key.classList.add("dot-keydown");
+    setTimeout(function() {
+      key.classList.remove("dot-keydown");
+    }, 200);
+  }
+ 
   switch (key.dataset.value) {
     case "=":
       equals();
@@ -265,6 +288,11 @@ function checkKey(e) {
     (key.dataset.value >= 0 && key.dataset.value <= 9) ||
     key.dataset.value == "."
   ) {
+    key.classList.add("numeral-keydown");
+    setTimeout(function() {
+      key.classList.remove("numeral-keydown");
+    }, 200);
+
     createInterger(key.dataset.value);
     if (isCalc === false) {
       firstInterger = "";
