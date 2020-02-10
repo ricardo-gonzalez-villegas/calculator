@@ -138,9 +138,6 @@ function createInterger(interger) {
     intergerString = "";
     return;
   }
-  if (intergerString.length === 0 && interger == 0) {
-    return;
-  }
   if (interger === "." && intergerString.includes(".")) {
     return;
   }
@@ -178,6 +175,9 @@ function clearInterger() {
 }
 
 function backspace() {
+  if (intergerString.length === 2 && intergerString.includes("-")) {
+    intergerString = "0";
+  }
   if (intergerString.length === 0) {
     totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   } else {
@@ -210,6 +210,7 @@ numeralButtons.forEach(button => {
     if (isCalc === false) {
       firstInterger = "";
       secondInterger = "";
+      total = 0;
       isCalc = true;
     }
   });
