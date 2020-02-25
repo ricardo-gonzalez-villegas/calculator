@@ -151,7 +151,7 @@ function createInterger(interger) {
   } else {
     intergerString += interger;
   }
-  totalDisplay.innerHTML = toInt(intergerString).toLocaleString();
+  totalDisplay.innerHTML = intergerString;
 }
 
 function setDisplay() {
@@ -161,8 +161,7 @@ function setDisplay() {
   } else if (isNaN(total)) {
     totalDisplay.innerHTML = "ERROR";
   } else {
-    let stringToConvert = Math.round((total + Number.EPSILON) * 100) / 100;
-    totalDisplay.innerHTML = stringToConvert.toLocaleString();
+    totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
   }
 }
 
