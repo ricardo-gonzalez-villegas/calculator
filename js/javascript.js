@@ -161,7 +161,7 @@ function setDisplay() {
   } else if (isNaN(total)) {
     totalDisplay.innerHTML = "ERROR";
   } else {
-    totalDisplay.innerHTML = Math.round((total + Number.EPSILON) * 100) / 100;
+    totalDisplay.innerHTML = (Math.round((total + Number.EPSILON) * 100) / 100).toLocaleString();
   }
 }
 
